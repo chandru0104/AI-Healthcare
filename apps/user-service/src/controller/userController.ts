@@ -1,6 +1,8 @@
 import { validationError } from "../utils/errorHandler"
-import { userAddService, userAllListService, userDeleteService, userProfileService, userUpdateService,otpSet } from "../services/userServices"
+import { userAddService, userAllListService, userDeleteService, userProfileService, userUpdateService,otpSet,otpGet } from "../services/userServices"
 import { Request, Response } from "express"
+
+
 
 
 
@@ -14,22 +16,44 @@ export const otpSetController = async (req:Request, res: Response)=>{
    })
 }
 
+export const verifyOtpController =async(req:Request,res:Response)=>{
+    const {email,userOtp}= req.body
+
+    if(!email ||!userOtp){
+        throw new validationError("Please enter your email and otp")
+    }
+    try{
+        await otpGet({...req.body})
+        res.status(200).json({
+            success:true,
+            message:"verify your otp"
+        })
+    }catch(error:any){
+    res.status(400).json({
+        success:false,
+        message:error.message
+    })
+}
+
+
+}
+
 //user add
 export const userAddController = async (req: Request, res: Response) => {
     try {
-        const { email, password, role, experience, licence_no, degree, specialist, about, registration, phone, location, language,fees,schedule } = req.body
+        const { email, password, role, experience, licence_no, degree, specialist, registration, phone, location } = req.body
 
         if (!email || !password || !role) {
             throw new validationError("Must fill the require feild")
         }
 
         if (role === "doctor") {
-            if (!email || !password || !role||!req.file || !experience || !licence_no || !degree || !specialist || !about || !registration || !phone || !location || !language||!fees||!schedule) {
+            if (!email || !password || !role|| !experience || !licence_no || !degree || !specialist ||  !registration || !phone || !location ) {
                 throw new validationError("Must fill the require feild")
             }
         }
         
-        const user = await userAddService({...req.body,file: req.file})
+        const user = await userAddService({...req.body})
 
         res.status(201).json({
             success: true,

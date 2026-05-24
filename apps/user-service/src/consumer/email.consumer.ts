@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "chandrus0104@gmail.com",
-        pass: "cmyj aqef bxlv zfia"
+        pass: "skxh jpde jfpu fkmy"
     }
 })
 
@@ -27,7 +27,7 @@ const connectConsumer = async () => {
         console.log("Consumer Connected")
 
         await consumer.subscribe({
-            topic: "send-mail",
+            topic:"send-mail",
             fromBeginning: true
         })
 
@@ -45,8 +45,8 @@ const connectConsumer = async () => {
                     const { email, otp } = data
 
                     await transporter.sendMail({
-                        from: process.env.EMAIL,
-                        to: email,
+                        from:"chandrus0104@gmail.com",
+                        to:email,
                         subject: "Your OTP",
                         html: `<h2>OTP: ${otp}</h2>`
                     })

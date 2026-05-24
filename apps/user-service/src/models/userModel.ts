@@ -33,6 +33,7 @@ const userModel = new mongoose.Schema({
     fees:Number,
     comment:String,
     star:String,
+    approved:Number,
     schedule:{
         type:[String],
         default:[]

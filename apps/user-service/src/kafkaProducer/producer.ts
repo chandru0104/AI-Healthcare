@@ -16,7 +16,7 @@ export const sendMail = async (email: any, otp: any) => {
     try {
 
         await producer.send({
-            topic: "send-mail",
+            topic:"send-mail",
             messages: [
                 {
                     value: JSON.stringify(data, null, 2)

@@ -1,10 +1,21 @@
-import axios from 'axios';
+import request from "supertest"
+import env from "dotenv"
 
-describe('GET /', () => {
-  it('should return a message', async () => {
-    const res = await axios.get(`/`);
+env.config()
+ 
+const BASE_URL =process.env.USER_SERVICE_URL 
 
-    expect(res.status).toBe(200);
-    expect(res.data).toEqual({ message: 'Hello API' });
-  });
-});
+describe("User service - E2E test (GET API)", ()=>{
+   it("It should 200 ok status", async()=>{
+    const res=await request(BASE_URL as any).get("/api/user")
+    expect( res.statusCode).toBe(200)
+   })
+})
+
+
+// describe("User-service E2E test (POST API)",()=>{
+//    it("It should 200 ok status",async()=>{
+//       const res =await request(BASE_URL as any).get("/api/user/profile/:id")
+//       expect(res.statusCode).toBe(200)
+//    })
+// })

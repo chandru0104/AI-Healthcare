@@ -1,9 +1,11 @@
-import {app} from "./app"
-import {connectDB} from "./utils/db"
+import { app } from './app';
+import { connectDB } from './utils/db';
+import './consumer/email.consumer';
 
+connectDB();
 
-connectDB()
+const PORT = process.env.PORT || 5002;
 
-app.listen(process.env.PORT, ()=>{
-    console.log("api connect in 5002")
-})
+app.listen(PORT, () => {
+  console.log(`api running on port ${PORT}`);
+});
