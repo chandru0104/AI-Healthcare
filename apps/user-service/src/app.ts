@@ -10,7 +10,7 @@ export const app = express();
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
-    info: {
+    info: { 
       title: 'AI-healthcare',
       description: 'api related docs',
       version: '1.0.0',

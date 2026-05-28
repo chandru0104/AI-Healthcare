@@ -1,14 +1,13 @@
-import express from 'express';
+import {app} from './app';
+import dotenv from "dotenv"
+import {connectDB} from "./utils/db"
 
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+dotenv.config()
 
-const app = express();
+const PORT =process.env.PORT || 5001
 
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' });
-});
+connectDB()
 
-app.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`);
-});
+app.listen(PORT,()=>{
+  console.log(`Auth service is running on port ${PORT}`)
+})
