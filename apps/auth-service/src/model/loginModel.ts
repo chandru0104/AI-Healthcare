@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import { removeListener } from "node:process";
-
 
 const user =new mongoose.Schema({
     email:{

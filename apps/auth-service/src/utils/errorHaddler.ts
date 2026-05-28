@@ -11,4 +11,9 @@ export class errorHanddler extends Error {
     }
 }
 
-
+export class validationError extends errorHanddler{
+    
+    constructor(message:string){
+        super(message,400,false)
+    }
+}
