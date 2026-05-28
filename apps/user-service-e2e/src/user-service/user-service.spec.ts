@@ -11,11 +11,3 @@ describe("User service - E2E test (GET API)", ()=>{
     expect( res.statusCode).toBe(200)
    })
 })
-
-
-// describe("User-service E2E test (POST API)",()=>{
-//    it("It should 200 ok status",async()=>{
-//       const res =await request(BASE_URL as any).get("/api/user/profile/:id")
-//       expect(res.statusCode).toBe(200)
-//    })
-// })
