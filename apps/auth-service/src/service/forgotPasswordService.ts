@@ -24,13 +24,24 @@ export const forgotPasswordService =async(data:any)=>{
         
         await redis.setex(
             `email:${email}`,
-            300,
-            hashOtp
+            1000,
+                JSON.stringify({
+                    email,
+                    otp:hashOtp
+                })
+            
         )
 
         await sendMail(email,otp)
+
         
         return {
             message:"OTP sent successfully"
         }
+
+
+
+
 }
+
+
