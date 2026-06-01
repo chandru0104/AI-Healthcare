@@ -1,8 +1,10 @@
 import { kafka } from "../utils/kafka"
 import nodemailer from "nodemailer"
-import env from "dotenv"
+import dotenv from "dotenv"
+dotenv.config()
 
-env.config()
+const EMAIL = process.env.EMAIL 
+const PASS = process.env.EMAIL_APP_PASSWORD
 
 const consumer = kafka.consumer({
     groupId: "email-group"
@@ -13,8 +15,8 @@ const consumer = kafka.consumer({
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "chandrus0104@gmail.com",
-        pass: "skxh jpde jfpu fkmy"
+        user:EMAIL,
+        pass:PASS
     }
 })
 
@@ -45,7 +47,7 @@ const connectConsumer = async () => {
                     const { email, otp } = data
 
                     await transporter.sendMail({
-                        from:"chandrus0104@gmail.com",
+                        from:EMAIL,
                         to:email,
                         subject: "Your OTP",
                         html: `<h2>OTP: ${otp}</h2>`
