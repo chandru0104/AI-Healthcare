@@ -11,15 +11,15 @@ export const verifyOtpService = async (
     throw new validationError("Enter your OTP");
   }
 
-  const storedOtp:any = await redis.get(`email:${email}`) 
+  const rawOtp = await redis.get<string>(`email:${email}`);
 
-  if (!storedOtp) {
+  if (!rawOtp) {
     throw new validationError("Your OTP expired");
   }
 
   const verifyOtp = await bcrypt.compare(
-    userOtp,
-    storedOtp.otp
+    userOtp.toString(),
+    rawOtp
   );
 
   if (!verifyOtp) {

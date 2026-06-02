@@ -1,23 +1,20 @@
-import { Request, Response } from "express";
-import { verifyOtpService } from "../service/verifyOtpService";
-import { validationError } from "../utils/errorHaddler";
+import { Request, Response } from 'express';
+import { verifyOtpService } from '../service/verifyOtpService';
+import { validationError } from '../utils/errorHaddler';
 
-export const verifyOtpController = async (
-  req: Request,
-  res: Response
-) => {
+export const verifyOtpController = async (req: Request, res: Response) => {
   try {
     const { email, userOtp } = req.body;
 
     if (!email || !userOtp) {
-      throw new validationError("Please enter all required fields");
+      throw new validationError('Please enter all required fields');
     }
 
     await verifyOtpService(email, userOtp);
 
     return res.status(200).json({
       success: true,
-      message: "OTP verified successfully",
+      message: 'OTP verified successfully',
     });
   } catch (error: any) {
     return res.status(400).json({
