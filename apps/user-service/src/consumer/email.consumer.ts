@@ -49,8 +49,8 @@ const connectConsumer = async () => {
                     await transporter.sendMail({
                         from:EMAIL,
                         to:email,
-                        subject: "Your OTP",
-                        html: `<h2>OTP: ${otp}</h2>`
+                        subject: "Care Hub OTP Verification",
+                        html:otpTemplate(otp)
                     })
 
                     console.log(`Email Sent ${email}`)

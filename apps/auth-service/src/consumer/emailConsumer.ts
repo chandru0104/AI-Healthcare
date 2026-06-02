@@ -1,6 +1,7 @@
 import {transporter} from "../utils/nodeMailer"
 import {kafka} from "../utils/kafka"
 import dotenv from "dotenv"
+import {otpTemplate} from "../utils/otpTemplate"
 
 dotenv.config()
 
@@ -33,8 +34,8 @@ const connectConsumer =async()=>{
             await transporter.sendMail({
                 from:"chandru0104@gmail.com",
                 to:email,
-                subject:"Your reset OTP",
-                html:`<h1>${otp}</h1>`
+                subject:"Care Hub OTP Verification",
+                html:otpTemplate(otp)
             })
         }
     })
