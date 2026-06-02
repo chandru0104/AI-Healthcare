@@ -1,40 +1,37 @@
-import express from "express"
-import { limit } from "../src/rateLimit/rate-limiter"
-import {authMiddleware} from "../src/authMiddleware/auth"
-import { createProxyMiddleware } from "http-proxy-middleware"
+import express from 'express';
+import { limit } from '../src/rateLimit/rate-limiter';
+import { authMiddleware } from '../src/authMiddleware/auth';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
-const app = express()
+const app = express();
 
-app.use(limit)
+app.use(limit);
 
-const authProxy= createProxyMiddleware({
-      changeOrigin:true,
-      target : process.env.AUTH_URL as string,
-      pathRewrite:{
-          "^/api/auth":" "
-      }
-})
+const authProxy = createProxyMiddleware({
+  changeOrigin: true,
+  target: process.env.AUTH_URL as string,
+  pathRewrite: {
+    '^/api/auth': ' ',
+  },
+});
 
 const userProxy = createProxyMiddleware({
-  changeOrigin:true,
-  target : process.env.USER_URL as string,
-  pathRewrite:{
-    "^/api/user" : " "
-  }
-})
+  changeOrigin: true,
+  target: process.env.USER_URL as string,
+  pathRewrite: {
+    '^/api/user': ' ',
+  },
+});
 
-app.use("/",(req,res)=>{
+app.use('/', (req, res) => {
   res.json({
-    message:`API gateway runnig in ${process.env.PROT}`
-  })
-})
+    message: `API gateway runnig in ${process.env.PROT}`,
+  });
+});
 
-app.use("/api/auth",authProxy)
-app.use("/api/user",authMiddleware,userProxy)
+app.use('/api/auth', authProxy);
+app.use('/api/user', authMiddleware, userProxy);
 
-
-app.listen(process.env.PROT,()=>{
-  console.log(`API gateway runnig in ${process.env.PROT}`)
-})
-
-
+app.listen(process.env.PROT, () => {
+  console.log(`API gateway runnig in ${process.env.PROT}`);
+});

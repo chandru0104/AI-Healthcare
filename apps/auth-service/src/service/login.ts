@@ -24,11 +24,19 @@ export const loginSevice = async (data: any) => {
     throw new validationError('Enter your password correctly');
   }
 
-  const token = jwt.sign(
+  const accessToken = jwt.sign(
     { id: user.id, role: user.role },
-    process.env.SECRET_KEY as string,
+    process.env.ACCESS_SECRET_KEY as string,
     {
-      expiresIn: '1d',
+      expiresIn: '1h',
+    },
+  );
+
+  const refreshToken = jwt.sign(
+    { id: user.id, role: user.role },
+    process.env.REFRESH_SECRET_KEY as string,
+    {
+      expiresIn: '7d',
     },
   );
 
@@ -36,6 +44,7 @@ export const loginSevice = async (data: any) => {
     id: user.id,
     role: user.role,
     email: user.email,
-    token,
+    accessToken,
+    refreshToken,
   };
 };
