@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
-import env from "dotenv"
+import dotenv from "dotenv"
 import {authError} from "../errorHandler/errorHandler"
-env.config()
+dotenv.config()
 
 
 export const authMiddleware =(req:any , res:any , next:any)=>{
