@@ -2,17 +2,22 @@ import { validationError } from '../utils/errorHaddler';
 import { redis } from '../utils/redis';
 import { User } from '../model/loginModel';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const salt = Number(process.env.SALT);
 
 export const newPasswordService = async (data: any) => {
-  const { email, newPassword, confirmPassword } = data;
+  const { resetToken, newPassword, confirmPassword } = data;
 
-  if (!email || !newPassword || !confirmPassword) {
+  if (!resetToken || !newPassword || !confirmPassword) {
     throw new validationError('Please fill the filed');
   }
+
+  // Decode email from JWT inside the service
+  const decoded: any = jwt.verify(resetToken, process.env.SECRET_KEY as string);
+  const email = decoded.email;
 
   const getVerify: any = await redis.get(`email:${email}`);
 
