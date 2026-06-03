@@ -156,6 +156,7 @@ export const userUpdateController = async (req: Request, res: Response) => {
     const data = req.body;
 
     const updatedData = await userUpdateService(id, data);
+    
 
     res.status(201).json({
       success: true,

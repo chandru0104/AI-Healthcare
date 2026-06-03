@@ -251,6 +251,12 @@ export const userProfileService = async (id: any) => {
 //user update services
 export const userUpdateService = async (id: any, data: any) => {
   try {
+   
+    const userlist = await User.findById(id,{status:0})
+    if(userlist){
+       throw new validationError("")
+    }
+
     const updateData = await User.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
