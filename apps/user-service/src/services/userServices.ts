@@ -241,7 +241,16 @@ export const userDeleteService = async (id: any) => {
 //user profile services
 export const userProfileService = async (id: any) => {
   try {
+    
+    const foundUser = await User.findById(id,{status: 0 })
+
+    if(foundUser){
+      return ("User not found")
+    }
+
     const UserProfile = await User.findById(id);
+
+
     return UserProfile;
   } catch (error: any) {
     throw new validationError(error.message);
@@ -254,7 +263,7 @@ export const userUpdateService = async (id: any, data: any) => {
    
     const userlist = await User.findById(id,{status:0})
     if(userlist){
-       throw new validationError("")
+       return ("User not found")
     }
 
     const updateData = await User.findByIdAndUpdate(id, data, {
