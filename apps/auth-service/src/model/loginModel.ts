@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
 const user = new mongoose.Schema({
+  name:{
+    type:String
+  },
+  profile:{
+    type:String
+  },
   email: {
     type: String,
     require: true,
@@ -11,6 +17,14 @@ const user = new mongoose.Schema({
   },
   role: {
     type: String,
+  },
+  is_google_login:{
+    type:Boolean,
+    require:true
+  },
+  googleId:{
+    type:String,
+    require:true
   },
 });
 

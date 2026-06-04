@@ -4,6 +4,7 @@ import { forgotPasswordContrroller } from '../controller/forgotPasswordControlle
 import { verifyOtpController } from '../controller/verifyOtpController';
 import { newPasswordController } from '../controller/newPasswordController';
 import { refreshTokenController } from '../controller/refreshTokenController';
+import { googleLoginController } from '../controller/googleLoginController';
 
 export const router = express.Router();
 
@@ -118,3 +119,28 @@ router.post('/api/new/password', newPasswordController);
  *         description: Create New Access Token Successfully
  */
 router.post('/api/refresh-token', refreshTokenController);
+
+/**
+* @swagger
+* /api/google-login
+*   post:
+*     summary:Google Login
+*     tags:
+*       -Auth
+*     requestBody:
+*       require:true
+*         content:
+*           application/json
+*             schema:
+*               type:object
+*               properties:
+*                 code:
+*                   type:string
+*                 role:
+*                   type:string
+*      response
+*        200
+*          description:Google Login Successfully
+*/
+
+router.post("/api/google-login",googleLoginController)
