@@ -95,8 +95,10 @@ export const userAddService = async (data: any) => {
       name,
       email,
       password: hashPassword,
-      role,
+      role
     });
+   
+     
     const responseUser = await User.findById(user._id).select(
       '-language -schedule -password -__v',
     );
@@ -262,14 +264,20 @@ export const userUpdateService = async (id: any, data: any) => {
   try {
    
     const userlist = await User.findById(id,{status:0})
-    if(userlist){
+    if(!userlist){
        return ("User not found")
     }
+   const updatePayload = {
+      ...data,
+      updatedBy: id // Assuming the user updating it is themselves (based on your code)
+    };
 
-    const updateData = await User.findByIdAndUpdate(id, data, {
+    const updateData = await User.findByIdAndUpdate(id, updatePayload, {
       new: true,
       runValidators: true,
     });
+    
+
     if (!updateData) {
       throw new validationError('User not update data');
     }
