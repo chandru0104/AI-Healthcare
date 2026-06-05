@@ -49,7 +49,8 @@
         "app/auth-service-e2e/**/*",
         "app/auth-service-e2e/**/*",
         "app/auth-service-e2e/**/*",
-        "apps/auth-service-e2e/**/*"
+        "apps/auth-service-e2e/**/*",
+        "apps/product-service-e2e/**/*"
       ]
     },
     {
