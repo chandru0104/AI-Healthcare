@@ -19,13 +19,11 @@ const expiryOn = new mongoose.Schema({
         ref:"User"
     },
     is_active:{
+        default:1,
         type:Number,
         required:true
     },
-    active:{
-        type:Number,
-        required:true
-    }
+
     
 },{timestamps:true})
 

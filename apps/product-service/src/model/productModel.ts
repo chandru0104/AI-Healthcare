@@ -69,12 +69,16 @@ const product = new mongoose.Schema({
         ref:"Product"
     },
     is_active:{
+        default:1,
         type:Number,
         required:true
     },
-    active:{
+    status:{
+        default:1,
         type:Number,
         required:true
     }
 
 },{timestamps:true})
+
+export const Product = mongoose.model("Product",product)
