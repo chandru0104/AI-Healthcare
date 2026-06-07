@@ -44,3 +44,20 @@ export const categoryUpdateService = async (id: any, data: any,getId:any) => {
     throw new Error(error.message);
   }
 };
+
+
+export const categoryDeleteService =async (id:any)=>{
+  try{
+      const category = await CategoryModel.findById(id)
+
+    if (!category) {
+      throw new Error('Category not found');
+    }
+
+    const deleteCategory = await CategoryModel.findByIdAndUpdate(id,{status:0},{new:true,runValidators:true})
+
+    return deleteCategory
+  }catch(error:any){
+     throw new Error(error.message)
+  }
+}

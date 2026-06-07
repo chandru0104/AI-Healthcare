@@ -15,7 +15,7 @@ export const refreshTokenService = async (refreshToken: string) => {
     ) as accessTokenDetails;
 
     if (!token) {
-      throw new Error('Invalid refresh token');
+      return 'Invalid refresh token';
     }
 
     const accessToken = jwt.sign(
@@ -26,9 +26,8 @@ export const refreshTokenService = async (refreshToken: string) => {
       },
     );
 
-    return {
-      accessToken,
-    };
+    return accessToken
+
   } catch (error: any) {
     throw new Error(error.message);
   }

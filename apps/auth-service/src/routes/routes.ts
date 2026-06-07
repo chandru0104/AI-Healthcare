@@ -121,26 +121,26 @@ router.post('/api/new/password', newPasswordController);
 router.post('/api/refresh-token', refreshTokenController);
 
 /**
-* @swagger
-* /api/google-login
-*   post:
-*     summary:Google Login
-*     tags:
-*       -Auth
-*     requestBody:
-*       require:true
-*         content:
-*           application/json
-*             schema:
-*               type:object
-*               properties:
-*                 code:
-*                   type:string
-*                 role:
-*                   type:string
-*      response
-*        200
-*          description:Google Login Successfully
-*/
+ * @swagger
+ * /api/google-login
+ *   post:
+ *     summary:Google Login
+ *     tags:
+ *       -Auth
+ *     requestBody:
+ *       require:true
+ *         content:
+ *           application/json
+ *             schema:
+ *               type:object
+ *               properties:
+ *                 code:
+ *                   type:string
+ *                 role:
+ *                   type:string
+ *      response
+ *        200
+ *          description:Google Login Successfully
+ */
 
-router.post("/api/google-login",googleLoginController)
+router.post('/api/google-login', googleLoginController);
