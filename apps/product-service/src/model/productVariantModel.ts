@@ -24,6 +24,13 @@ const variant=new mongoose.Schema({
         type:Number,
         required:true
     }
-},{timestamps:true})
+},  { timestamps: true,
+    toJSON:{
+      transform:function(doc,ret:any){
+        const { __v, ...rest } = ret; 
+        return rest;
+      }
+    }
+   },)
 
 export const Variant = mongoose.model("Variant",variant)

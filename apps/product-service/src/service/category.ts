@@ -1,14 +1,46 @@
-import { CategoryModel } from "../model/categoryModel";
+import { CategoryModel } from '../model/categoryModel';
 
+export const categoryAddService = async (name: any, userId: any) => {
+  try {
+    const createCategory = await CategoryModel.create({
+      name,
+      createdBy: userId,
+    });
 
+    return createCategory;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
-export const categoryAddService =async(name:any,userId:any)=>{
-    try{
-        const createCategory = await CategoryModel.create({name,createdBy:userId})
+export const categoryListService = async () => {
+  try {
+    const categoryList = await CategoryModel.find({ status: 1 });
 
-         return createCategory
+    return categoryList;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
-    }catch(error:any){
-        throw new Error(error.message)
+export const categoryUpdateService = async (id: any, data: any,getId:any) => {
+  try {
+    const category = await CategoryModel.findById(id);
+
+    if (!category) {
+      throw new Error('Category not found');
     }
-}
+
+    const payload = { ...data, updatedBy: getId };
+
+    const update = await CategoryModel.findByIdAndUpdate(id, payload, {
+      new: true,
+      runValidators: true,
+    });
+
+
+    return update;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

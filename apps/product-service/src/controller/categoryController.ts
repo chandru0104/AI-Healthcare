@@ -1,33 +1,71 @@
-import { categoryAddService } from "../service/category";
-import { Request,Response } from "express";
+import { categoryAddService,categoryListService,categoryUpdateService } from '../service/category';
+import { Request, Response } from 'express';
 
-interface AuthReq extends Request{
-    user:{
-        _id:string
+
+export const categoryAddController = async (req: any, res: Response) => {
+  try {
+      
+      const { name } = req.body;
+      const getUserId =req.user?.id;
+
+    if (!name) {
+      throw new Error('Fill the category name');
     }
+    const categoryData = await categoryAddService(name, getUserId);
+
+    res.status(201).json({
+      success: true,
+      message: 'Create Category',
+      data: categoryData,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+export const serviceListController = async(req:Request,res:Response)=>{
+     try{
+     const getServiceList = await categoryListService()
+
+      res.status(200).json({
+        success:true,
+        message:"Service Listed Sucsessfully",
+        data:getServiceList
+      })
+     }catch(error:any){
+        res.status(400).json({
+        success:true,
+        message:error.message
+        })
+}
 }
 
-export const categoryAddController = async(req:Request,res:Response) =>{
-    try{
-    const getUserId = req as AuthReq
-    
-    const {name} = req.body
-    const userId = getUserId.user._id
+export const categoryUpdateController = async(req:any,res:Response)=>{
+  try{
+    const {id}= req.params
+    const data= req.body
+    const getId=req.user?.id
 
-    if(!name){
-        throw new Error("Fill the category name");
+    if(!id){
+      throw new Error("Category id not found")
     }
-    const categoryData =await categoryAddService(name,userId)
+
+    const updateCategory = await categoryUpdateService(id,data,getId)
 
     res.status(201).json({
         success:true,
-        message:"Create Category",
-        data:categoryData
+        message:"Category updated successfully",
+        data:updateCategory
     })
-   }catch(error:any){
-    res.status(400).json({
+  }catch(error:any){
+        res.status(400).json({
         success:false,
-        message:"Create Category Failed"
+        message:error.message
     })
-   }
+  }
 }

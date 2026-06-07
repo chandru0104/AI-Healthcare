@@ -1,28 +1,37 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const originModel=new mongoose.Schema({
-
-    name:{
-        type:String,
-        required:true
+const originModel = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
-    UpdatedBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    UpdatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
-    is_active:{
-        default:1,
-        type:Number,
-        required:true
+    is_active: {
+      default: 1,
+      type: Number,
+      required: true,
     },
-    status:{
-        type:Number,
-        required:true
+    status: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true,
+    toJSON:{
+      transform:function(doc,ret:any){
+        const { __v, ...rest } = ret; 
+        return rest;
+      }
     }
-},{timestamps:true})
+   },
+);
 
-export const OriginModel = mongoose.model("Origin",originModel)
+export const OriginModel = mongoose.model('Origin', originModel);

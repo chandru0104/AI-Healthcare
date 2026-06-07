@@ -1,84 +1,91 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-
-const product = new mongoose.Schema({
-
-    name:{
-        type:String,
-        required:true
+const product = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    description:{
-        type:String,
-        required:true
+    description: {
+      type: String,
+      required: true,
     },
-    price:{
-        type:Number,
-        required:true
+    price: {
+      type: Number,
+      required: true,
     },
-    benifit:{
-        type:String,
-        required:true
+    benifit: {
+      type: String,
+      required: true,
     },
-    image:{
-        type:[String],
-        required:true,
-        default:[]
+    image: {
+      type: [String],
+      required: true,
+      default: [],
     },
-    variant:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Variant"
+    variant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Variant',
     },
-    subategory:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Subategory"
+    subategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Subategory',
     },
-    category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category"
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
     },
-    childCategory:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"ChildCategory"
+    childCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ChildCategory',
     },
-    Origin:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Origin"
+    Origin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Origin',
     },
-    ExpiryOn:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"ExpiryOn"
+    ExpiryOn: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ExpiryOn',
     },
-    Brand:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Brand"
+    Brand: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Brand',
     },
-    ageGroup:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"AgeGroup"
+    ageGroup: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'AgeGroup',
     },
-    returnPolicy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"returnPolicy"
+    returnPolicy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'returnPolicy',
     },
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Product"
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
     },
-    updatedBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Product"
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
     },
-    is_active:{
-        default:1,
-        type:Number,
-        required:true
+    is_active: {
+      default: 1,
+      type: Number,
+      required: true,
     },
-    status:{
-        default:1,
-        type:Number,
-        required:true
+    status: {
+      default: 1,
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true,
+    toJSON:{
+      transform:function(doc,ret:any){
+        const { __v, ...rest } = ret; 
+        return rest;
+      }
     }
+   },
+);
 
-},{timestamps:true})
-
-export const Product = mongoose.model("Product",product)
+export const Product = mongoose.model('Product', product);

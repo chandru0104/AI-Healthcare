@@ -28,7 +28,7 @@ export const loginSevice = async (data: any) => {
     { id: user.id, role: user.role },
     process.env.ACCESS_SECRET_KEY as string,
     {
-      expiresIn: '1h',
+      expiresIn: '5h',
     },
   );
 

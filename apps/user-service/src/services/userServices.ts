@@ -263,13 +263,13 @@ export const userProfileService = async (id: any) => {
 export const userUpdateService = async (id: any, data: any) => {
   try {
    
-    const userlist = await User.findById(id,{status:0})
+    const userlist = await User.findById(id)
     if(!userlist){
        return ("User not found")
     }
    const updatePayload = {
       ...data,
-      updatedBy: id // Assuming the user updating it is themselves (based on your code)
+      updatedBy: id 
     };
 
     const updateData = await User.findByIdAndUpdate(id, updatePayload, {

@@ -24,6 +24,13 @@ const returnPolicy=new mongoose.Schema({
         type:Number,
         required:true
     }
-},{timestamps:true})
+},  { timestamps: true,
+    toJSON:{
+      transform:function(doc,ret:any){
+        const { __v, ...rest } = ret; 
+        return rest;
+      }
+    }
+   },)
 
 export const ReturnPolicy = mongoose.model("ReturnPolicy",returnPolicy)
