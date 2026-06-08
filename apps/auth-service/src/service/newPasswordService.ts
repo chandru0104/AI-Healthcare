@@ -12,7 +12,7 @@ export const newPasswordService = async (data: any) => {
   const { resetToken, newPassword, confirmPassword } = data;
 
   if (!resetToken || !newPassword || !confirmPassword) {
-    throw new validationError('Please fill the filed');
+    throw new validationError('Please fill the fields');
   }
 
   // Decode email from JWT inside the service

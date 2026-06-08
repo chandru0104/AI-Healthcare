@@ -5,6 +5,7 @@ import {
   categoryDeleteService,
 } from '../service/categoryService';
 import { Request, Response } from 'express';
+import {validationError} from "../utils/errorHandler"
 
 export const categoryAddController = async (req: any, res: Response) => {
   try {
@@ -12,7 +13,7 @@ export const categoryAddController = async (req: any, res: Response) => {
     const getUserId = req.user?.id;
 
     if (!name) {
-      throw new Error('Fill the category name');
+      throw new validationError('Fill the category name');
     }
     const categoryData = await categoryAddService(name, getUserId);
 

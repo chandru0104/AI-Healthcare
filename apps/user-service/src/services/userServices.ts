@@ -12,7 +12,7 @@ export const otpSet = async (data: any) => {
   const { email } = data;
 
   if (!email) {
-    throw new validationError('Fill require filed');
+    throw new validationError('Fill require fields');
   }
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const hashOtp = await bcrypt.hash(otp, 10);
@@ -32,7 +32,7 @@ export const otpGet = async (data: any) => {
   const { email, userOtp } = data;
 
   if (!email || !userOtp) {
-    throw new validationError('Fill require filed');
+    throw new validationError('Fill require fields');
   }
   try {
     const getOpt: any = await redis.get(`email:${email}`);
@@ -95,10 +95,9 @@ export const userAddService = async (data: any) => {
       name,
       email,
       password: hashPassword,
-      role
+      role,
     });
-   
-     
+
     const responseUser = await User.findById(user._id).select(
       '-language -schedule -password -__v',
     );
@@ -243,15 +242,13 @@ export const userDeleteService = async (id: any) => {
 //user profile services
 export const userProfileService = async (id: any) => {
   try {
-    
-    const foundUser = await User.findById(id,{status: 0 })
+    const foundUser = await User.findById(id, { status: 0 });
 
-    if(foundUser){
-      return ("User not found")
+    if (foundUser) {
+      return 'User not found';
     }
 
     const UserProfile = await User.findById(id);
-
 
     return UserProfile;
   } catch (error: any) {
@@ -262,21 +259,19 @@ export const userProfileService = async (id: any) => {
 //user update services
 export const userUpdateService = async (id: any, data: any) => {
   try {
-   
-    const userlist = await User.findById(id)
-    if(!userlist){
-       return ("User not found")
+    const userlist = await User.findById(id);
+    if (!userlist) {
+      return 'User not found';
     }
-   const updatePayload = {
+    const updatePayload = {
       ...data,
-      updatedBy: id 
+      updatedBy: id,
     };
 
     const updateData = await User.findByIdAndUpdate(id, updatePayload, {
       new: true,
       runValidators: true,
     });
-    
 
     if (!updateData) {
       throw new validationError('User not update data');

@@ -1,4 +1,5 @@
 import { CategoryModel } from '../model/categoryModel';
+import {validationError} from "../utils/errorHandler"
 
 export const categoryAddService = async (name: any, userId: any) => {
   try {
@@ -28,7 +29,7 @@ export const categoryUpdateService = async (id: any, data: any,getId:any) => {
     const category = await CategoryModel.findById(id);
 
     if (!category) {
-      throw new Error('Category not found');
+      throw new validationError('Category not found');
     }
 
     const payload = { ...data, updatedBy: getId };
@@ -51,7 +52,7 @@ export const categoryDeleteService =async (id:any)=>{
       const category = await CategoryModel.findById(id)
 
     if (!category) {
-      throw new Error('Category not found');
+      throw new validationError('Category not found');
     }
 
     const deleteCategory = await CategoryModel.findByIdAndUpdate(id,{status:0},{new:true,runValidators:true})

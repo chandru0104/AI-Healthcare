@@ -5,19 +5,18 @@ import {
   deleteBrandService,
 } from '../service/brandService';
 import { Request, Response } from 'express';
+import {validationError} from "../utils/errorHandler"
 
 export const addBrandController = async (req: any, res: Response) => {
   try {
     const { name } = req.body;
     const userId = req.user?.id;
 
-    console.log(userId);
     if (!name) {
-      throw new Error('Please fill the Brand name');
+      throw new validationError('Please fill the Brand name');
     }
 
     const addBrand = await addBrandService(name, userId);
-    console.log(userId);
     res.status(201).json({
       success: true,
       message: 'Brand added successfully',
