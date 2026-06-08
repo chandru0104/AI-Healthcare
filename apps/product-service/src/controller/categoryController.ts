@@ -3,7 +3,7 @@ import {
   categoryListService,
   categoryUpdateService,
   categoryDeleteService,
-} from '../service/category';
+} from '../service/categoryService';
 import { Request, Response } from 'express';
 
 export const categoryAddController = async (req: any, res: Response) => {
