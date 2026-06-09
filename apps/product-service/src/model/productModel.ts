@@ -14,6 +14,9 @@ const product = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    ExpiryOn: {
+      type: String
+    },
     benifit: {
       type: String,
       required: true,
@@ -42,10 +45,6 @@ const product = new mongoose.Schema(
     Origin: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Origin',
-    },
-    ExpiryOn: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ExpiryOn',
     },
     Brand: {
       type: mongoose.Schema.Types.ObjectId,
@@ -78,14 +77,15 @@ const product = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true,
-    toJSON:{
-      transform:function(doc,ret:any){
-        const { __v, ...rest } = ret; 
+  {
+    timestamps: true,
+    toJSON: {
+      transform: function (doc, ret: any) {
+        const { __v, ...rest } = ret;
         return rest;
-      }
-    }
-   },
+      },
+    },
+  },
 );
 
 export const Product = mongoose.model('Product', product);

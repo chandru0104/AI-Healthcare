@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const expiryOn = new mongoose.Schema(
   {
-    data: {
+    date: {
       type: Date,
       required: true,
     },

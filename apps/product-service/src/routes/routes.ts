@@ -20,12 +20,13 @@ import {
   deleteAgeGroupController
 } from '../controller/ageGroupController';
 
-// import { 
-//   addChildCategoryController,
-//   listChildCategoryController,
-//   updateChildCategoryController,
-//   deleteChildCategoryController
-// } from '../controller/childCategoryController';
+import { 
+  addChildCategoryController,
+  listChildCategoryController,
+  updateChildCategoryController,
+  deleteChildCategoryController
+} from '../controller/childCategoryController';
+
 
 
 
@@ -52,7 +53,7 @@ router.put("/api/age-group/update/:id",authMiddleware,updateAgeGroupController)
 router.put("/api/age-group/delete/:id",authMiddleware,deleteAgeGroupController)
 
 //Child Category
-// router.post("/api/brand/add",authMiddleware,addChildCategoryController)
-// router.get("/api/brand/list",authMiddleware,listChildCategoryController) 
-// router.put("/api/brand/update/:id",authMiddleware,updateChildCategoryController)
-// router.put("/api/brand/delete/:id",authMiddleware,deleteChildCategoryController)
+router.post("/api/child-category/add",authMiddleware,addChildCategoryController)
+router.get("/api/child-category/list",authMiddleware,listChildCategoryController) 
+router.put("/api/child-category/update/:id",authMiddleware,updateChildCategoryController)
+router.put("/api/child-category/delete/:id",authMiddleware,deleteChildCategoryController)
