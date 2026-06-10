@@ -14,7 +14,7 @@ const product = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    ExpiryOn: {
+    expiryOn: {
       type: String
     },
     benifit: {
@@ -27,8 +27,8 @@ const product = new mongoose.Schema(
       default: [],
     },
     variant: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Variant',
+      type: String,
+      required: true,
     },
     subategory: {
       type: mongoose.Schema.Types.ObjectId,
@@ -42,11 +42,11 @@ const product = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ChildCategory',
     },
-    Origin: {
+    origin: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Origin',
     },
-    Brand: {
+    brand: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Brand',
     },
@@ -55,8 +55,8 @@ const product = new mongoose.Schema(
       ref: 'AgeGroup',
     },
     returnPolicy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'returnPolicy',
+      type: String,
+      required: true,
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

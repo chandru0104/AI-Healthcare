@@ -10,7 +10,7 @@ const originModel = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    UpdatedBy: {
+    updatedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
@@ -20,6 +20,7 @@ const originModel = new mongoose.Schema(
       required: true,
     },
     status: {
+       default: 1,
       type: Number,
       required: true,
     },
