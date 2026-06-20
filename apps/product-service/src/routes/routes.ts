@@ -90,7 +90,7 @@ router.put("/api/origin/update/:id",authMiddleware,updateOriginController)
 router.put("/api/origin/delete/:id",authMiddleware,deleteOriginController)
 
 //Product api list
-router.post("/api/product/add",uploader.array("images",4),addProductController)
+router.post("/api/product/add",uploader.any(),authMiddleware,addProductController)
 // router.get("/api/origin/list",authMiddleware,listOriginController) 
 // router.put("/api/origin/update/:id",authMiddleware,updateOriginController)
 // router.put("/api/origin/delete/:id",authMiddleware,deleteOriginController)

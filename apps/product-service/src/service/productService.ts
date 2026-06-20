@@ -11,7 +11,7 @@ import cloudinary from '../utils/cloudinary';
 
 export const addProductService = async (file: any, data: any,userId:any) => {
   try {
-    const {
+    let {
       name,
       description,
       price,
@@ -27,12 +27,14 @@ export const addProductService = async (file: any, data: any,userId:any) => {
       returnPolicy,
     } = data;
 
-    const subategoryName = await SubCategory.findById( subcategoryId );
+    subcategoryId = subcategoryId || data.subategoryId;
 
-    if (!subategoryName) {
-      throw  new validationError('Subcatagroy not found');
+    const subCategoryName = await SubCategory.findById( subcategoryId );
+
+    if (!subCategoryName) {
+      throw  new validationError('Subcategory not found');
     }
-    const subCategory = subategoryName.name;
+    const subCategory = subCategoryName.name;
 
     const categoryName = await CategoryModel.findById( categoryId );
 
@@ -51,32 +53,41 @@ export const addProductService = async (file: any, data: any,userId:any) => {
     const originName = await OriginModel.findById( originId );
 
     if (!originName) {
-      throw  new validationError('origin not found');
+      throw  new validationError('Origin not found');
     }
     const origin = originName.name;
 
     const brandName = await BrandModel.findById(brandId );
 
     if (!brandName) {
-      throw  new validationError('origin not found');
+      throw  new validationError('Brand not found');
     }
     const brand = brandName.name;
 
     const ageGroupName = await AgeGroup.findById(ageGroupId );
 
     if (!ageGroupName) {
-      throw  new validationError('origin not found');
+      throw  new validationError('Age group not found');
     }
     const ageGroup = ageGroupName.name;
 
     let productImage:string[]=[];
 
-    if (file) {
-      const image =await cloudinary.uploader.upload(file.path, {
+    if (file && Array.isArray(file)) {
+      for (const f of file) {
+        if (f.path) {
+          const image = await cloudinary.uploader.upload(f.path, {
+            folder: 'product-images',
+          });
+          productImage.push(image.secure_url);
+        }
+      }
+    } else if (file && file.path) {
+      const image = await cloudinary.uploader.upload(file.path, {
         folder: 'product-images',
       });
       productImage.push(image.secure_url);
-    } 
+    }
 
     await Product.create({
       name,
