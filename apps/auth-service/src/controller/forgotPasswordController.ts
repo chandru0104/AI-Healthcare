@@ -18,7 +18,7 @@ export const forgotPasswordContrroller = async (
 
     await forgotPasswordService(req.body);
 
-    const resetToken = jwt.sign({ email }, process.env.SECRET_KEY as string, {
+    const resetToken = jwt.sign({ email },process.env.SECRET_KEY as string, {
       expiresIn: '10m',
     });
 

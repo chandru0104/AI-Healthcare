@@ -17,7 +17,7 @@ const product = new mongoose.Schema(
     expiryOn: {
       type: String
     },
-    benifit: {
+    benefit: {
       type: String,
       required: true,
     },
@@ -30,27 +30,27 @@ const product = new mongoose.Schema(
       type: String,
       required: true,
     },
-    subategory: {
+    subcategoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Subategory',
     },
-    category: {
+    categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
     },
-    childCategory: {
+    childCategoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'ChildCategory',
     },
-    origin: {
+    originId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Origin',
     },
-    brand: {
+    brandId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Brand',
     },
-    ageGroup: {
+    ageGroupId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'AgeGroup',
     },

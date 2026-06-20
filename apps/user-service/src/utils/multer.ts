@@ -7,6 +7,9 @@ const upoladPath = path.resolve('/app/user-service/uploader');
 if (!fs.existsSync(upoladPath)) {
   mkdirSync(upoladPath, { recursive: true });
 }
+
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, upoladPath);

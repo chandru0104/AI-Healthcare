@@ -7,9 +7,12 @@ import {
 import { Request,Response } from 'express';
 
 export const addOrginController = async (req: any, res: Response) => {
-  try {
+      console.log("Controller Hit");
+  try { 
     const { name } = req.body;
     const userId = req.user.id;
+    console.log(req.user);
+  
     const addOrigin = await addOrginService(name, userId);
 
     res.status(201).json({
