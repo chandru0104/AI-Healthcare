@@ -67,7 +67,7 @@ export const updateOriginController = async (req: any, res: Response) => {
 export const deleteOriginController = async (req: any, res: Response) => {
   try {
     const {id} = req.params;
-    console.log(id)
+
     await deleteOriginService(id);
 
     res.status(200).json({

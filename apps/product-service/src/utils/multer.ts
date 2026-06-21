@@ -2,7 +2,7 @@ import multer from "multer"
 import path from "path"
 import fs, { mkdirSync } from "fs"
 
-const filePath = path.resolve(__dirname, "../../uploads")
+const filePath = path.resolve(__dirname, "../uploads")
 
 if(!fs.existsSync(filePath)){
     mkdirSync(filePath,{recursive:true})

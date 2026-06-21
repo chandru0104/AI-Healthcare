@@ -8,8 +8,7 @@ import { ChildCategory } from '../model/childCategoryModel';
 import { validationError } from '../utils/errorHandler';
 import cloudinary from '../utils/cloudinary';
 
-
-export const addProductService = async (file: any, data: any,userId:any) => {
+export const addProductService = async (file: any, data: any, userId: any) => {
   try {
     let {
       name,
@@ -27,51 +26,49 @@ export const addProductService = async (file: any, data: any,userId:any) => {
       returnPolicy,
     } = data;
 
-    subcategoryId = subcategoryId || data.subategoryId;
-
-    const subCategoryName = await SubCategory.findById( subcategoryId );
+    const subCategoryName = await SubCategory.findById(subcategoryId);
 
     if (!subCategoryName) {
-      throw  new validationError('Subcategory not found');
+      throw new validationError('Subcategory not found');
     }
     const subCategory = subCategoryName.name;
 
-    const categoryName = await CategoryModel.findById( categoryId );
+    const categoryName = await CategoryModel.findById(categoryId);
 
     if (!categoryName) {
-      throw  new validationError('Category not found');
+      throw new validationError('Category not found');
     }
     const category = categoryName.name;
 
-    const childCategoryName = await ChildCategory.findById(childCategoryId );
+    const childCategoryName = await ChildCategory.findById(childCategoryId);
 
     if (!childCategoryName) {
-      throw  new validationError('Child category not found');
+      throw new validationError('Child category not found');
     }
     const childCategory = childCategoryName.name;
 
-    const originName = await OriginModel.findById( originId );
+    const originName = await OriginModel.findById(originId);
 
     if (!originName) {
-      throw  new validationError('Origin not found');
+      throw new validationError('Origin not found');
     }
     const origin = originName.name;
 
-    const brandName = await BrandModel.findById(brandId );
+    const brandName = await BrandModel.findById(brandId);
 
     if (!brandName) {
-      throw  new validationError('Brand not found');
+      throw new validationError('Brand not found');
     }
     const brand = brandName.name;
 
-    const ageGroupName = await AgeGroup.findById(ageGroupId );
+    const ageGroupName = await AgeGroup.findById(ageGroupId);
 
     if (!ageGroupName) {
-      throw  new validationError('Age group not found');
+      throw new validationError('Age group not found');
     }
     const ageGroup = ageGroupName.name;
 
-    let productImage:string[]=[];
+    let productImage: string[] = [];
 
     if (file && Array.isArray(file)) {
       for (const f of file) {
@@ -104,10 +101,10 @@ export const addProductService = async (file: any, data: any,userId:any) => {
       brandId,
       ageGroupId,
       returnPolicy,
-      createdBy:userId,
+      createdBy: userId,
     });
 
-     const productResponse = {
+    const productResponse = {
       name,
       description,
       price,
@@ -135,3 +132,65 @@ export const addProductService = async (file: any, data: any,userId:any) => {
     throw new validationError(error.message);
   }
 };
+
+export const productListService = async () => {
+  try {
+    const productData = await Product.find({ status: 1 });
+    return productData;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const productUpdateService = async (id: any,file:any, data: any, userId: any) => {
+  try {
+    const images:string[]=[]
+
+    if(file && Array.isArray(file)){
+       for(const f of file){
+        if(f.path){
+      const image= await cloudinary.uploader.upload(f.path,{
+        folder :"product-images"
+      })
+           images.push(image.secure_url)
+    }
+      
+        }
+
+    }else if(file.path){
+        const image = await cloudinary.uploader.upload(file.path,{
+          folder:"product-images"
+        })
+        images.push(image.secure_url)
+    }
+
+    const payload = {
+      ...data,
+      updatedBy: userId,
+    };
+
+    if(images.length>0){
+      payload.image=images
+    }
+    
+    const updatePorduct = await Product.findByIdAndUpdate(id, payload, {
+      new: true,
+      runValidators: true,
+    });
+
+    return updatePorduct;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+
+export const productDeleteService= async(id:any)=>{
+    try{
+      
+      await Product.findByIdAndUpdate(id,{status:0})
+      
+    }catch(error:any){
+       throw new Error(error.message)
+    }
+}
